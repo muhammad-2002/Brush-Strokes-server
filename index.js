@@ -59,12 +59,16 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const result = await item.deleteOne(query);
       res.send(result)
-
-
     }catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error");
   }
+  })
+  app.get('/items-for-craft/:id',async(req,res)=>{
+    const id = req.params.id
+    const query= {_id:new ObjectId(id)}
+    const result = await item.findOne(query)
+    res.send(result)
   })
   app.put('/items-update/:id',async(req,res)=>{
     try{
