@@ -30,7 +30,14 @@ async function run() {
     // await client.connect();
     const database = client.db("Brush_Stokes");
     const item = database.collection("Craft_Item");
+    const catagories = database.collection("catagories");
 
+
+app.get('/catagories',async(req,res)=>{
+  const cursor = catagories.find()
+  const result = await cursor.toArray()
+  res.send(result)
+})
     app.get('/items', async (req, res) => {
       try {
           const cursor = item.find();
@@ -41,6 +48,7 @@ async function run() {
           res.status(500).send("Internal Server Error");
       }
   });
+  
   
   app.get('/items/:id', async (req, res) => {
       try {
