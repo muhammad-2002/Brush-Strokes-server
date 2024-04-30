@@ -72,11 +72,20 @@ app.get('/catagories',async(req,res)=>{
       res.status(500).send("Internal Server Error");
   }
   })
+
+  
   app.get('/items-for-craft/:id',async(req,res)=>{
     const id = req.params.id
     const query= {_id:new ObjectId(id)}
     const result = await item.findOne(query)
     res.send(result)
+  })
+  app.get('/items-update/:id',async(req,res)=>{
+    const id = req.params.id
+    const query= {_id:new ObjectId(id)}
+    const result = await item.findOne(query)
+    res.send(result)
+
   })
   app.put('/items-update/:id',async(req,res)=>{
     try{
@@ -104,7 +113,13 @@ app.get('/catagories',async(req,res)=>{
       res.status(500).send("Internal Server Error");
   }
   })
-  
+  app.get('/ietm-by-Sub-catagory/:sub_cataogry',async(req,res)=>{
+    const sub_category = req.params.sub_cataogry
+    const query = { 
+      subcategoryName: sub_category };
+      const cursor = await item.find(query).toArray()
+      res.send(cursor)
+  })
   app.get('/items-by-email/:email', async (req, res) => {
       try {
           const email = req.params.email;
